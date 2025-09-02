@@ -53,7 +53,16 @@ public class Main {
                     }
 
                     break;
-
+                case "save":
+                    System.out.println("Enter the filename to save tasks:");
+                    String saveFilename = scanner.nextLine();
+                    toDoListManager.saveTasksToFile(saveFilename);
+                    break;
+                case "load":
+                    System.out.println("Enter the filename to load tasks:");
+                    String loadFilename = scanner.nextLine();
+                    toDoListManager.loadTasksFromFile(loadFilename);
+                    break;
                 case "exit":
                     System.out.println("Exiting the application.");
                     break;

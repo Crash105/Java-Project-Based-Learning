@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class TodoListManager<T> {
@@ -38,5 +42,28 @@ public class TodoListManager<T> {
         }
         System.out.println("Task Complete: " + tasks.get(index - 1));
         tasks.remove(index - 1);
+    }
+
+    public void saveTasksToFile(String filename) {
+        try (FileWriter writer = new FileWriter(filename)) {
+            for (T task : tasks) {
+                writer.write(task.toString() + "\n");
+            }
+            System.out.println("Tasks saved to " + filename);
+        } catch (IOException e) {
+            System.out.println("Error saving tasks: " + e.getMessage());
+        }
+    }
+
+    public void loadTasksFromFile(String filename) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String task;
+            while ((task = reader.readLine()) != null) {
+                addTask((T) task); // Add each task to the list
+
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading tasks: " + e.getMessage());
+        }
     }
 }
