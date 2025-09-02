@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -20,17 +21,39 @@ public class Main {
                     toDoListManager.viewTasks();
                     break;
                 case "remove":
-                    System.out.println("Enter the task number to remove:");
-                    int removeTaskNumber = scanner.nextInt();
-                    scanner.nextLine(); // Consume newline
-                    toDoListManager.removeTask(removeTaskNumber);
+                    try {
+                        System.out.println("Enter the task number to remove:");
+                        int removeTaskNumber = scanner.nextInt();
+                        scanner.nextLine(); // Consume newline
+                        toDoListManager.removeTask(removeTaskNumber);
+
+                    } catch (InputMismatchException e) {
+                        System.out.println("Invalid input. Please enter a number.");
+                        scanner.nextLine(); // Clear the invalid input
+                    } catch (TaskNotFoundException e) {
+                        System.out.println("Error: " + e.getMessage());
+
+                    }
+
                     break;
                 case "complete":
-                    System.out.println("Enter the task number to complete:");
-                    int completeTaskNumber = scanner.nextInt();
-                    scanner.nextLine(); // Consume newline
-                    toDoListManager.completeTask(completeTaskNumber);
+
+                    try {
+                        System.out.println("Enter the task number to complete:");
+                        int completeTaskNumber = scanner.nextInt();
+                        scanner.nextLine(); // Consume newline
+                        toDoListManager.completeTask(completeTaskNumber);
+
+                    } catch (InputMismatchException e) {
+                        System.out.println("Invalid input. Please enter a number.");
+                        scanner.nextLine();
+                    } catch (TaskNotFoundException e) {
+                        System.out.println("Error: " + e.getMessage());
+
+                    }
+
                     break;
+
                 case "exit":
                     System.out.println("Exiting the application.");
                     break;
