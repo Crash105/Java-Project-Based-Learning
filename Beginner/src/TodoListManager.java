@@ -22,21 +22,21 @@ public class TodoListManager<T> {
         }
     }
 
-    public void removeTask(int index) {
-        if (index >= 1 && index <= tasks.size()) {
-            System.out.println("Task removed: " + tasks.get(index - 1));
-            tasks.remove(index - 1);
-        } else {
-            System.out.println("Invalid task number.");
+    public void removeTask(int index) throws TaskNotFoundException {
+        if (index < 1 || index > tasks.size()) {
+            throw new TaskNotFoundException("Invalid task number.");
+
         }
+        System.out.println("Task removed: " + tasks.get(index - 1));
+        tasks.remove(index - 1);
     }
 
-    public void completeTask(int index) {
-        if (index >= 1 && index <= tasks.size()) {
-            System.out.println("Task completed: " + tasks.get(index - 1));
-            tasks.remove(index - 1);
-        } else {
-            System.out.println("Invalid task number.");
+    public void completeTask(int index) throws TaskNotFoundException {
+        if (index < 1 || index > tasks.size()) {
+            throw new TaskNotFoundException("Invalid task number.");
+
         }
+        System.out.println("Task Complete: " + tasks.get(index - 1));
+        tasks.remove(index - 1);
     }
 }
