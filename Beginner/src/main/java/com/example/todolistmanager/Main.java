@@ -1,4 +1,5 @@
-import java.util.InputMismatchException;
+package com.example.todolistmanager;
+
 import java.util.Scanner;
 
 public class Main {
@@ -8,7 +9,7 @@ public class Main {
         String command;
 
         do {
-            System.out.println("\nEnter a command (add/view/remove/complete/exit):");
+            System.out.println("\nEnter a command (add/view/remove/complete/save/load/exit):");
             command = scanner.nextLine();
 
             switch (command) {
@@ -21,37 +22,16 @@ public class Main {
                     toDoListManager.viewTasks();
                     break;
                 case "remove":
-                    try {
-                        System.out.println("Enter the task number to remove:");
-                        int removeTaskNumber = scanner.nextInt();
-                        scanner.nextLine(); // Consume newline
-                        toDoListManager.removeTask(removeTaskNumber);
-
-                    } catch (InputMismatchException e) {
-                        System.out.println("Invalid input. Please enter a number.");
-                        scanner.nextLine(); // Clear the invalid input
-                    } catch (TaskNotFoundException e) {
-                        System.out.println("Error: " + e.getMessage());
-
-                    }
-
+                    System.out.println("Enter the task number to remove:");
+                    int removeTaskNumber = scanner.nextInt();
+                    scanner.nextLine(); // Consume newline
+                    toDoListManager.removeTask(removeTaskNumber);
                     break;
                 case "complete":
-
-                    try {
-                        System.out.println("Enter the task number to complete:");
-                        int completeTaskNumber = scanner.nextInt();
-                        scanner.nextLine(); // Consume newline
-                        toDoListManager.completeTask(completeTaskNumber);
-
-                    } catch (InputMismatchException e) {
-                        System.out.println("Invalid input. Please enter a number.");
-                        scanner.nextLine();
-                    } catch (TaskNotFoundException e) {
-                        System.out.println("Error: " + e.getMessage());
-
-                    }
-
+                    System.out.println("Enter the task number to complete:");
+                    int completeTaskNumber = scanner.nextInt();
+                    scanner.nextLine(); // Consume newline
+                    toDoListManager.completeTask(completeTaskNumber);
                     break;
                 case "save":
                     System.out.println("Enter the filename to save tasks:");
