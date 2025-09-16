@@ -1,30 +1,40 @@
 package com.example.todolistmanager;
 
-public class Task {
-    private String name;
-    private int priority;
-    private String category;
+import java.time.LocalDate;
 
-    public Task(String name, int priority, String category) {
-        this.name = name;
+public class Task {
+    private String description;
+    private int priority;
+    private int category;
+    private LocalDate deadline;
+
+
+    public Task(String description, int priority, int category, LocalDate deadline) {
+        this.description = description;
         this.priority = priority;
         this.category = category;
+        this.deadline = deadline;
+
     }
 
-    public String getName() {
-        return name;
+    public String geDescription() {
+        return description;
     }
 
     public int getPriority() {
         return priority;
     }
 
-    public String getCategory() {
+    public int getCategory() {
         return category;
     }
+    public LocalDate getDate() {
+        return deadline;
+    }
+
 
     @Override
     public String toString() {
-        return String.format("[%d] %s (%s)", priority, name, category);
+        return priority + "," + description + "," + category + "," + deadline;
     }
 }

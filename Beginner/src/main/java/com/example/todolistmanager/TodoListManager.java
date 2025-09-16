@@ -4,21 +4,25 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TodoListManager<T> {
-    private ArrayList<T> tasks;
+    private ArrayList<Task> tasks;
 
     public TodoListManager() {
+
         tasks = new ArrayList<>();
     }
 
-    public void addTask(T task) {
-        tasks.add(task);
-        System.out.println("Task added: " + task);
+    public void addTask(String description, int priority, int category, LocalDate deadline) {
+        Task newTask = new Task(description, priority, category, deadline);
+        tasks.add(newTask);
+        System.out.println("Task added: " + description + ", Priority: [" + priority + "], Category: " + category + ", Deadline: " + deadline + ", Tasks Size: " + tasks.size());
     }
 
-    public ArrayList<T> getTasks() {
+    public ArrayList<Task> getTasks() {
 
         return tasks;
     }
@@ -53,7 +57,7 @@ public class TodoListManager<T> {
 
     public void saveTasksToFile(String filename) {
         try (FileWriter writer = new FileWriter(filename)) {
-            for (T task : tasks) {
+            for (Task task : tasks) {
                 writer.write(task.toString() + "\n");
             }
             System.out.println("Tasks saved to " + filename);
@@ -62,15 +66,24 @@ public class TodoListManager<T> {
         }
     }
 
+
     public void loadTasksFromFile(String filename) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String task;
             while ((task = reader.readLine()) != null) {
-                addTask((T) task); // Add each task to the list
+                String[] parts = task.split(",");
+
+                int priority = Integer.parseInt(parts[0]);
+                String description = parts[1];
+                int category = Integer.parseInt(parts[2]);
+                LocalDate deadline = LocalDate.parse(parts[3]);
+                addTask(description, priority, category, deadline);
+                 // Add each task to the list
 
             }
         } catch (IOException e) {
             System.out.println("Error loading tasks: " + e.getMessage());
         }
     }
+
 }
